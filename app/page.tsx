@@ -31,10 +31,10 @@ export default function Home() {
         </div>
 
         <h1 className="text-3xl font-serif text-gray-900 mb-1">
-          Siapa kamu? 👋
+          Hai selamat datang 👋
         </h1>
         <p className="text-sm text-gray-400 mb-8">
-          Isi data diri untuk mengikuti undian
+          Isi data diri dulu ya
         </p>
 
         <div className="flex flex-col gap-4">
