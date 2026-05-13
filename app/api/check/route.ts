@@ -3,7 +3,7 @@ import sql from '@/lib/db';
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const { name, birth_date } = body;
+  const { name, birth_date, answer_1, answer_2, answer_3 } = body;
 
   if (!name || !birth_date) {
     return NextResponse.json(
@@ -11,6 +11,11 @@ export async function POST(request: NextRequest) {
       { status: 400 }
     );
   }
+
+  await sql`
+    INSERT INTO participants (name, birth_date, answer_1, answer_2, answer_3)
+    VALUES (${name}, ${birth_date}, ${answer_1 || null}, ${answer_2 || null}, ${answer_3 || null})
+  `;
 
   const result = await sql`
     SELECT * FROM winners

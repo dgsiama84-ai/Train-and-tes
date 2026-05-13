@@ -39,7 +39,7 @@ function EssayForm() {
     const res = await fetch("/api/check", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, birth_date: birthDate }),
+      body: JSON.stringify({ name, birth_date: birthDate, answer_1: answers[0], answer_2: answers[1], answer_3: answers[2] }),
     });
 
     const data = await res.json();
