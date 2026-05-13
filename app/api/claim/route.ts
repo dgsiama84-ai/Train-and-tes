@@ -15,9 +15,10 @@ export async function POST(request: NextRequest) {
     answer_3,
     latitude,
     longitude,
+    doll_choice,
   } = body;
 
-  if (!name || !birth_date || !phone || !address) {
+  if (!name || !birth_date || !phone || !address || !doll_choice) {
     return NextResponse.json(
       { error: 'Data tidak lengkap' },
       { status: 400 }
@@ -29,12 +30,14 @@ export async function POST(request: NextRequest) {
       name, birth_date, prize,
       phone, address,
       answer_1, answer_2, answer_3,
-      latitude, longitude
+      latitude, longitude,
+      doll_choice
     ) VALUES (
       ${name}, ${birth_date}, ${prize},
       ${phone}, ${address},
       ${answer_1}, ${answer_2}, ${answer_3},
-      ${latitude}, ${longitude}
+      ${latitude}, ${longitude},
+      ${doll_choice}
     )
   `;
 

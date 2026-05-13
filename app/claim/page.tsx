@@ -2,6 +2,17 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Image from "next/image";
+
+const DOLLS = [
+  { id: "pooh",  name: "Pooh",  img: "/dolls/pooh.jpg" },
+  { id: "berry", name: "Berry", img: "/dolls/berry.jpg" },
+  { id: "dolpi", name: "Dolpi", img: "/dolls/dolpi.jpg" },
+  { id: "hazel", name: "Hazel", img: "/dolls/hazel.jpg" },
+  { id: "rusty", name: "Rusty", img: "/dolls/rusty.jpg" },
+  { id: "minty", name: "Minty", img: "/dolls/minty.jpg" },
+  { id: "honey", name: "Honey", img: "/dolls/honey.jpg" },
+];
 
 function ClaimForm() {
   const router = useRouter();
@@ -16,6 +27,7 @@ function ClaimForm() {
 
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [dollChoice, setDollChoice] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [location, setLocation] = useState<{ lat: number; lng: number } | null>(null);
@@ -36,8 +48,8 @@ function ClaimForm() {
   }, []);
 
   const handleSubmit = async () => {
-    if (!phone || !address) {
-      setError("Nomor WhatsApp dan alamat wajib diisi.");
+    if (!phone || !address || !dollChoice) {
+      setError("Semua field wajib diisi, termasuk pilihan boneka.");
       return;
     }
 
@@ -58,6 +70,7 @@ function ClaimForm() {
         answer_3: a3,
         latitude: location?.lat || null,
         longitude: location?.lng || null,
+        doll_choice: dollChoice,
       }),
     });
 
@@ -75,20 +88,18 @@ function ClaimForm() {
     <main className="min-h-screen bg-[#F0F4FF] flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-sm">
 
-        {/* Progress */}
         <div className="flex items-center gap-2 mb-6">
           <div className="w-1.5 h-1.5 bg-blue-300 rounded-full" />
           <div className="w-1.5 h-1.5 bg-blue-300 rounded-full" />
           <div className="w-5 h-1.5 bg-blue-600 rounded-full" />
         </div>
 
-        {/* Badge */}
         <div className="inline-flex items-center gap-2 bg-green-100 border border-green-200 rounded-xl px-3 py-1.5 mb-4">
           <span className="text-xs font-semibold text-green-600 uppercase tracking-widest">🏆 Kamu menang!</span>
         </div>
 
         <h1 className="text-3xl font-serif text-gray-900 mb-1">
-          Klaim hadiahmu 🎁
+          Klaim hadiahmu
         </h1>
         <p className="text-sm text-gray-400 mb-6">
           Lengkapi data untuk pengiriman hadiah
@@ -96,16 +107,51 @@ function ClaimForm() {
 
         <div className="flex flex-col gap-4">
 
-          {/* Prize card */}
-          <div className="bg-white border border-blue-100 rounded-2xl p-4 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-xl flex-shrink-0">🎁</div>
-            <div>
-              <p className="text-[10px] text-gray-400 uppercase tracking-widest">Hadiahmu</p>
-              <p className="text-sm font-semibold text-gray-900">{prize}</p>
+          {/* Doll picker */}
+          <div>
+            <label className="text-[10px] font-semibold text-blue-600 uppercase tracking-widest mb-2 block">
+              Pilih Boneka
+            </label>
+            <div className="grid grid-cols-4 gap-2">
+              {DOLLS.map((doll) => (
+                <button
+                  key={doll.id}
+                  onClick={() => setDollChoice(doll.id)}
+                  className={`flex flex-col items-center gap-1 p-2 rounded-2xl border-2 transition-all ${
+                    dollChoice === doll.id
+                      ? "border-blue-500 bg-blue-50"
+                      : "border-gray-100 bg-white"
+                  }`}
+                >
+                  <div className="w-full aspect-square rounded-xl overflow-hidden relative">
+                    <Image
+                      src={doll.img}
+                      alt={doll.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <span className="text-[10px] font-medium text-gray-700">{doll.name}</span>
+                </button>
+              ))}
             </div>
+            {dollChoice && (() => {
+  const selected = DOLLS.find((d) => d.id === dollChoice)!;
+  return (
+    <div className="bg-white border border-blue-100 rounded-2xl p-4 flex flex-col items-center gap-3">
+      <div className="relative w-64 h-64 rounded-xl overflow-hidden">
+        <Image src={selected.img} alt={selected.name} fill className="object-cover" />
+      </div>
+      <div className="text-center">
+        <p className="text-[10px] text-gray-400 uppercase tracking-widest mb-0.5">Pilihanmu</p>
+        <p className="text-base font-semibold text-gray-900">{selected.name}</p>
+        <p className="text-xs text-blue-500 mt-1">✓ Boneka ini yang akan dikirim</p>
+      </div>
+    </div>
+  );
+})()}
           </div>
 
-          {/* Phone */}
           <div>
             <label className="text-[10px] font-semibold text-blue-600 uppercase tracking-widest mb-1.5 block">
               Nomor WhatsApp
@@ -119,7 +165,6 @@ function ClaimForm() {
             />
           </div>
 
-          {/* Address */}
           <div>
             <label className="text-[10px] font-semibold text-blue-600 uppercase tracking-widest mb-1.5 block">
               Alamat Pengiriman
@@ -133,13 +178,10 @@ function ClaimForm() {
             />
           </div>
 
-          {/* Location */}
           <div className={`rounded-2xl p-4 flex items-center gap-3 border ${
-            locStatus === "granted"
-              ? "bg-green-50 border-green-200"
-              : locStatus === "denied"
-              ? "bg-red-50 border-red-100"
-              : "bg-white border-gray-200"
+            locStatus === "granted" ? "bg-green-50 border-green-200" :
+            locStatus === "denied" ? "bg-red-50 border-red-100" :
+            "bg-white border-gray-200"
           }`}>
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl flex-shrink-0 ${
               locStatus === "granted" ? "bg-green-100" :
