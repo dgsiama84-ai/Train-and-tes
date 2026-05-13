@@ -95,7 +95,7 @@ function EssayForm() {
                 value={answers[i]}
                 onChange={(e) => handleChange(i, e.target.value)}
                 placeholder="Tulis jawabanmu di sini..."
-                maxLength={200}
+                maxLength={500}
                 rows={3}
                 className="w-full bg-[#F8F9FF] border border-[#E8EEFF] rounded-xl px-3 py-2.5 text-xs text-gray-700 placeholder-gray-300 outline-none focus:border-blue-400 transition-colors resize-none"
               />
@@ -103,7 +103,7 @@ function EssayForm() {
                 <span className={answers[i].length > 0 ? "text-blue-400" : "text-gray-300"}>
                   {answers[i].length}
                 </span>
-                <span className="text-gray-300"> / 200</span>
+                <span className="text-gray-300"> / 500</span>
               </div>
             </div>
           ))}
