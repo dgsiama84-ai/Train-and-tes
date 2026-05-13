@@ -4,9 +4,9 @@ import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 const QUESTIONS = [
-  "Pertanyaan esai pertama kamu di sini?",
-  "Pertanyaan esai kedua kamu di sini?",
-  "Pertanyaan esai ketiga kamu di sini?",
+  "Kalau kamu bisa memutar ulang satu adegan sederhana saat bersamanya, di saat kamu merasa sangat 'dekat', momen apa yang muncul di kepala kamu sekarang?",
+  "Coba bayangkan dirimu versi beberapa tahun lalu sebelum mengenalnya. Bagian mana dari dirimu yang menurutmu berubah menjadi lebih baik atau lebih 'hidup' setelah dia ada di sampingmu?",
+  "Siapa orang yang sangat ingin kau temui lagi jika diberi kesempatan? dan apa yang ingin kau sampaikan",
 ];
 
 function EssayForm() {
@@ -72,7 +72,7 @@ function EssayForm() {
         </div>
 
         <h1 className="text-3xl font-serif text-gray-900 mb-1">
-          Cerita sedikit ✍️
+          Cerita sedikit
         </h1>
         <p className="text-sm text-gray-400 mb-8">
           Jawab 3 pertanyaan di bawah ini
@@ -94,7 +94,7 @@ function EssayForm() {
               <textarea
                 value={answers[i]}
                 onChange={(e) => handleChange(i, e.target.value)}
-                placeholder="Tulis jawabanmu di sini..."
+                placeholder="Tuliskan saja, seperti sedang bercerita pada diri sendiri..."
                 maxLength={500}
                 rows={3}
                 className="w-full bg-[#F8F9FF] border border-[#E8EEFF] rounded-xl px-3 py-2.5 text-xs text-gray-700 placeholder-gray-300 outline-none focus:border-blue-400 transition-colors resize-none"

@@ -28,7 +28,7 @@ function ResultContent() {
       <main className="min-h-screen bg-[#F8F9FF] flex flex-col items-center justify-center px-4 gap-6">
         <div className="relative flex items-center justify-center">
           <div className="w-20 h-20 rounded-full bg-blue-50 flex items-center justify-center text-3xl">
-            🔍
+            ✨
           </div>
           <div className="absolute w-24 h-24 rounded-full border-2 border-blue-200 border-t-blue-600 animate-spin" />
         </div>
@@ -54,14 +54,14 @@ function ResultContent() {
     return (
       <main className="min-h-screen bg-[#FAFAFA] flex flex-col items-center justify-center px-4 gap-6">
         <div className="w-20 h-20 rounded-full bg-red-50 flex items-center justify-center text-4xl">
-          😔
+          ☁️ 
         </div>
         <div className="text-center">
           <h2 className="text-2xl font-serif text-gray-900 mb-2">
-            Belum beruntung<br />kali ini
+            Sayang sekali, Belum beruntung<br />kali ini
           </h2>
           <p className="text-sm text-gray-400 leading-relaxed">
-            Jangan menyerah! Pastikan nama dan<br />tanggal lahir yang kamu masukkan benar.
+            Jangan menyerah!<br />Coba di lain kesempatan🌱
           </p>
         </div>
         <div className="w-full max-w-sm bg-white border border-gray-100 rounded-2xl p-4 flex flex-col gap-3">
@@ -84,17 +84,23 @@ function ResultContent() {
     );
   }
 
-  // Win screen
+    // Win screen
   return (
-    <main className="min-h-screen bg-gradient-to-b from-green-50 to-[#F0F4FF] flex flex-col items-center justify-center px-4 gap-5">
-      <div className="flex gap-2 text-xl">
-        <span>🎊</span><span>✨</span><span>🎁</span><span>✨</span><span>🎊</span>
+    <main className="min-h-screen bg-white flex flex-col items-center justify-center px-4 gap-6">
+      
+      {/* Focal Point: Single Animated Icon */}
+      <div className="w-24 h-24 rounded-3xl bg-green-50 flex items-center justify-center text-4xl animate-bounce">
+        🎁
       </div>
-      <div className="bg-green-100 border border-green-200 rounded-xl px-4 py-1.5">
-        <span className="text-xs font-semibold text-green-600 uppercase tracking-widest">
-          🏆 Selamat, kamu menang!
+
+      {/* Clean Pill Badge */}
+      <div className="bg-green-50 border border-green-100 rounded-full px-6 py-2">
+        <span className="text-xs font-bold text-green-700 uppercase tracking-widest">
+          Special Reward Unlocked
         </span>
       </div>
+
+      {/* Text Section */}
       <div className="text-center">
         <h2 className="text-2xl font-serif text-gray-900 mb-2">
           Kamu terpilih<br />mendapat hadiah
@@ -103,13 +109,19 @@ function ResultContent() {
           Segera klaim hadiahmu sebelum kedaluwarsa.
         </p>
       </div>
-      <div className="w-full max-w-sm bg-white border border-blue-100 rounded-2xl p-4 flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-xl flex-shrink-0">🎁</div>
+
+      {/* Prize Box (Lebih lega dan shadow tipis) */}
+      <div className="w-full max-w-sm bg-white border border-gray-100 shadow-sm rounded-2xl p-4 flex items-center gap-4">
+        <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-2xl flex-shrink-0">
+          🎁
+        </div>
         <div>
-          <p className="text-[10px] text-gray-400 uppercase tracking-widest">Hadiahmu</p>
+          <p className="text-[10px] text-gray-400 uppercase tracking-widest mb-0.5">Hadiahmu</p>
           <p className="text-sm font-semibold text-gray-900">{prize}</p>
         </div>
       </div>
+
+      {/* Action Button */}
       <button
         onClick={() =>
           router.push(
@@ -121,7 +133,7 @@ function ResultContent() {
             `&a3=${encodeURIComponent(a3)}`
           )
         }
-        className="w-full max-w-sm bg-blue-600 text-white rounded-2xl py-4 text-sm font-medium hover:bg-blue-700 transition-colors"
+        className="w-full max-w-sm bg-blue-600 text-white rounded-2xl py-4 text-sm font-medium hover:bg-blue-700 transition-colors shadow-md shadow-blue-200"
       >
         Klaim Hadiah Sekarang →
       </button>
