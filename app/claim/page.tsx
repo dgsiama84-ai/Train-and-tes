@@ -157,7 +157,7 @@ function ClaimForm() {
               Nomor WhatsApp
             </label>
             <input
-              type="tel"
+              type="number"
               placeholder="0812-3456-7890"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
