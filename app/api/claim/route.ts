@@ -25,6 +25,17 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const existing = await sql`
+    SELECT id FROM claims WHERE name = ${name} AND birth_date = ${birth_date} LIMIT 1
+  `;
+
+  if (existing.length > 0) {
+    return NextResponse.json(
+      { error: 'Kamu sudah pernah klaim hadiah ini.' },
+      { status: 409 }
+    );
+  }
+
   await sql`
     INSERT INTO claims (
       name, birth_date, prize,
