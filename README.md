@@ -1,4 +1,4 @@
-# Fun App — Undian Berhadiah
+# Fun App — Iseng2 Berhadiah
 
 Web app undian interaktif. Peserta mengisi nama dan tanggal lahir, menjawab 3 pertanyaan reflektif, lalu sistem menentukan apakah mereka menang atau tidak.
 
